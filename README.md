@@ -1,1 +1,1 @@
-# pwnable.kr-Intermediate
+# Class-Intermediate
