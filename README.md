@@ -11,4 +11,4 @@
 본 Repository는 중급반에서 활동을 진행하시는 데 있어 도움을 드리고자 제작되었습니다.  
 
 ## Contributors  
-민경환 [@dotoleeoak](https://github.com/DailyPS) - Repo 제작 및 정리
+민경환 [@DailyPS](https://github.com/DailyPS) - Repo 제작 및 정리
