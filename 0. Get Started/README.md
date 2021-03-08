@@ -68,7 +68,7 @@ sudo apt update
 sudo apt install gcc gdb gcc-multilib g++-multilib
 sudo apt install pyhton3
 ```
-밑 2개는 gdb 실행시 어셈블리를 intel형으로 보기 위해 필요합니다. (선택)
+밑 2개는 64비트 환경에서 32비트 프로그램을 실행하기 위해 필요한 라이브러리입니다.
 ```
 sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386
 sudo dpkg --add-architecture i386
@@ -90,6 +90,10 @@ gdb ./test
 disas main -> 메인 함수 어셈블리 보기
 disas add -> 'add'라는 이름의 함수의 어셈블리 보기
 ```
+gdb에 나오는 어셈블리어 문법을 at&t에서 intel로 바꾸기 위해선 아래와 같이 입력하면 됩니다.
+```
+set disassembly-flavor intel
+```
 ----
 ## CTF and Pwnable.kr
 중급반에서 공격기법을 배우고, 이를 적용할 수 있는 좋은 CTF 사이트입니다.  
@@ -101,12 +105,12 @@ pwnable.kr에 접속하시고 회원 가입을 하신 다음에 어떤 방식으
 
 🌐 CTF Site  
 ┣ 🌐  
-┣ 🌐   
-┗ 🌐
+┣ 🌐  
+┗ 🌐  
 
 🏆 CTF Competition  
-┣ 🏆  
-┣ 🏆     
-┗ 🏆
+┣ 🏆  Codegate
+┣ 🏆  DEFCON
+┗ 🏆  HITCON
 
 다양한 곳에서 연습해보시고 도전해보시고 싶으시다면 동아리원분들과 함께 도전하실 수도 있습니다!
