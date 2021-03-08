@@ -1,4 +1,4 @@
-![main](/image/'HIT 로고'.png)
+![main](/image/.png)
 # HIT 중급반   
 성균관대학교 정보보안동아리 HIT의 중급반에 오신 것을 환영합니다.  
 
