@@ -14,14 +14,14 @@
     - Memory Layout
     - Calling convention
 2. CTF 문제풀이 도구
-    - Pwntools
-    - Ghidra
+    - [Pwntools](https://github.com/Gallopsled/pwntools)
+    - [Ghidra](https://ghidra-sre.org/)
 3. 간단한 공격기법
     - Buffer overflow
     - Return oriented programming
     - Format string bug
     - Use after free
-4. pwnable.kr 사이트 문제풀이
+4. [pwnable.kr](https://pwnable.kr) 사이트 문제풀이
 
 ## Guideline  
 본 Repository는 중급반에서 활동을 진행하시는 데 있어 도움을 드리고자 제작되었습니다.  
