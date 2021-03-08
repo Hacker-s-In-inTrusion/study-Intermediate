@@ -104,13 +104,13 @@ pwnable.kr에 접속하시고 회원 가입을 하신 다음에 어떤 방식으
 추가적으로 pwnable.kr 외에도 많은 CTF 사이트 / 대회가 있습니다!  
 
 🌐 CTF Site  
-┣ 🌐  [pwnable.kr](https://pwnable.kr)
-┣ 🌐  [reversing.kr](http://reversing.kr)
-┗ 🌐  [HackCTF](https://ctf.j0n9hyun.xyz/)
+┣ 🌐  [pwnable.kr](https://pwnable.kr)  
+┣ 🌐  [reversing.kr](http://reversing.kr)  
+┗ 🌐  [HackCTF](https://ctf.j0n9hyun.xyz/)  
 
 🏆 CTF Competition  
-┣ 🏆  Codegate
-┣ 🏆  DEFCON
-┗ 🏆  HITCON
+┣ 🏆  Codegate  
+┣ 🏆  DEFCON  
+┗ 🏆  HITCON  
 
 다양한 곳에서 연습해보시고 도전해보시고 싶으시다면 동아리원분들과 함께 도전하실 수도 있습니다!
