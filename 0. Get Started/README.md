@@ -37,13 +37,13 @@ __5. 예외처리를 확실하게 하는 코드__
 ## Get Started  
 이제 중급반을 위한 여정을 시작해보도록 합시다!  
 
-Linux 상에서 이루어지기 때문에 OS의 기반이 Linux면 괜찮지만 아닌 경우에는 (특히 Windows) 몇몇가지 설정을 해줘야 합니다.  
+Linux 상에서 이루어지기 때문에 OS의 기반이 Linux면 괜찮지만 아닌 경우에는 (특히 Windows의 경우) 몇가지 설정을 해줘야 합니다.  
 Windows를 쓰시는 분이 다수일 거라 생각하기에, WSL(Windows용 Linux)을 설치하고 필요한 명령어들을 몇몇 알아봅시다.
 
 ### WSL 설치
-1. 검색에서 Microsoft Store을 검색합니다.
+1. 윈도우 검색에서 Microsoft Store을 검색해 실행합니다.
 
-2. Ubuntu라고 검색하시고, 원하시는 버전을 설치합니다. (20.04랑 18.04의 차이는 크게 보면 python2의 사용 가능 여부입니다.)
+2. Microsoft Store에서 Ubuntu를 검색하시고, 원하시는 버전을 설치합니다. (20.04랑 18.04의 차이는 크게 보면 python2의 사용 가능 여부입니다.)
 
 3. 설치하신 Ubuntu를 누르시고 계정 설정을 완료해주시면 됩니다.
 
@@ -62,16 +62,16 @@ Windows를 쓰시는 분이 다수일 거라 생각하기에, WSL(Windows용 Lin
 설치하실 때 문제가 발생할 수도 있습니다. 그 때는 [이 링크](https://engpro.tistory.com/9)를 참고하시면 해결하실 수 있습니다.
 
 ### 라이브러리 설치
-리눅스(위에서 라면 우분투겠죠?)를 실행하고 다음 명령어를 차례로 입력해서 라이브러리를 설치합시다.
+리눅스(위에서 라면 우분투겠죠?)를 실행하고 쉘 위에서 다음 명령어를 차례로 입력해서 라이브러리를 설치합시다.
 ```
-sudo apt update
-sudo apt install gcc gdb gcc-multilib g++-multilib
-sudo apt install pyhton3
+$ sudo apt update
+$ sudo apt install gcc gdb gcc-multilib g++-multilib
+$ sudo apt install pyhton3
 ```
 밑 2개는 64비트 환경에서 32비트 프로그램을 실행하기 위해 필요한 라이브러리입니다.
 ```
-sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386
-sudo dpkg --add-architecture i386
+$ sudo apt-get install libc6:i386 libncurses5:i386 libstdc++6:i386 zlib1g:i386
+$ sudo dpkg --add-architecture i386
 ```
 이러면 기본 세팅이 완료 됩니다!  
 이제 gdb를 이용해 어셈블이 되는지 간단하게 확인해봅시다.
@@ -79,11 +79,11 @@ sudo dpkg --add-architecture i386
 ### GDB 사용하기
 위에 첨부해드린 test.c를 이용합니다. 다음의 명령어로 컴파일 해 주세요.
 ```
-gcc -o test test.c -m32 -no-pie
+$ gcc -o test test.c -m32 -no-pie
 ```
 컴파일이 된 후에 다음과 같이 하시면 됩니다.
 ```
-gdb ./test
+$ gdb ./test
 ```
 그러면 gdb 가 실행이 되고 다양한 명령어를 통해 바이너리를 분석할 수 있습니다.
 ```
@@ -97,14 +97,14 @@ gdb)set disassembly-flavor intel
 ----
 ## CTF and Pwnable.kr
 중급반에서 공격기법을 배우고, 이를 적용할 수 있는 좋은 CTF 사이트입니다.  
-CTF란 Catch The Flag의 약자로, 프로그램의 취약점을 분석해 목표인 flag를 획득해 점수를 획득하는 방식의 War Game입니다. 여러 공격기법을 배우고 적용하기에 좋은 형식입니다.
+CTF란 Capture The Flag의 약자로, 프로그램의 취약점을 분석해 목표인 flag를 획득해 점수를 획득하는 방식의 War Game입니다. 여러 공격기법을 배우고 적용하기에 좋은 형식입니다.
 
-pwnable.kr에 접속하시고 회원 가입을 하신 다음에 어떤 방식으로 진행되는지 가장 첫번째 문제인 "fd"를 풀어보시면 CTF의 전반적인 방식이 이해가 되실 겁니다.
+[pwnable.kr](https://pwnable.kr)에 접속하시고 회원 가입을 하신 다음에 어떤 방식으로 진행되는지 가장 첫번째 문제인 "fd"를 풀어보시면 CTF의 전반적인 방식이 이해가 되실 겁니다.
 
 추가적으로 pwnable.kr 외에도 많은 CTF 사이트 / 대회가 있습니다!  
 
 🌐 CTF Site  
-┣ 🌐  [pwnable.kr](https://pwnable.kr)  
+┣ 🌐  [Over the Wire](https://overthewire.org/wargames/)  
 ┣ 🌐  [reversing.kr](http://reversing.kr)  
 ┗ 🌐  [HackCTF](https://ctf.j0n9hyun.xyz/)  
 
