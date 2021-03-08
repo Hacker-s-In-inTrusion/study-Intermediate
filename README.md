@@ -24,7 +24,23 @@
 4. [pwnable.kr](https://pwnable.kr) 사이트 문제풀이
 
 ## Guideline  
-본 Repository는 중급반에서 활동을 진행하시는 데 있어 도움을 드리고자 제작되었습니다.  
+💾study-Intermediate  
+┣ 📂 0. Get Started (꼭 읽으세요!)  
+┃ ┗ 📜 README.md  
+┣ 📂 1. My Buffer is Overflowing  
+┃ ┣ 📜 write-up.py  
+┃ ┣ 📜 write-up.py (for python2)  
+┃ ┗ 📜 README.md  
+┃ ...   
+┃ 📂 Other CTF Write-Up  
+┃ ┣ 📜 write-up.py  
+┃ ┃ ...  
+┃ ┗ 📜 README.md  
+┗ 📜 README.md  
+
+본 Repository는 위와 같은 구조이며, 중급반에서 활동을 진행하시는 데 있어 도움을 드리고자 제작되었습니다.  
+처음 설정하시는 분들을 위한 Get Started 폴더, 각 주차별 스터디를 정리한 폴더, 그리고 pwnable.kr을 제외한 다른 CTF 문제들의 Write-Up들이 담긴 폴더가 있습니다.  
+각 주차별 안에는 주차마다 학습했던 내용이 정리되어있고, write-up이라고 하는 풀이가 정리되어있습니다. python파일은 pwntools를 이용한 풀이입니다.
 
 ## Contributors  
 우병수 [@Mysigyeong](https://github.com/Mysigyeong) - HIT 중급반 스터디 진행  
