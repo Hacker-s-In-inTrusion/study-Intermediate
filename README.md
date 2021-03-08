@@ -1,6 +1,7 @@
 <p align="center">
     <image src="https://github.com/Hacker-s-In-inTrusion/study-Intermediate/blob/main/image/logo.png?raw=true">
-</p>
+</p>  
+
 # HIT 중급반   
 성균관대학교 정보보안동아리 HIT의 중급반에 오신 것을 환영합니다.  
 
