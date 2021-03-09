@@ -32,7 +32,7 @@
 ┃ ┣ 📜 write-up.py (for python2)  
 ┃ ┗ 📜 README.md  
 ┃ ...   
-┃ 📂 Other CTF Write-Up  
+┣ 📂 Other CTF Write-Up  
 ┃ ┣ 📜 write-up.py  
 ┃ ┃ ...  
 ┃ ┗ 📜 README.md  
