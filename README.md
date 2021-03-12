@@ -44,5 +44,5 @@
 
 ## Contributors  
 우병수 [@Mysigyeong](https://github.com/Mysigyeong) - HIT 중급반 스터디 진행  
-조규원 [@ChoKyuWon](https://github.com/ChoKyuWon) - 다양한 CTF Writeup 정리  
+조규원 [@ChoKyuWon](https://github.com/ChoKyuWon) - 중급반 2 writeup 정리 
 민경환 [@DailyPS](https://github.com/DailyPS) - Repo 제작 및 정리
