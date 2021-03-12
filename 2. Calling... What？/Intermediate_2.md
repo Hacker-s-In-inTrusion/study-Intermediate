@@ -27,7 +27,7 @@ select f
 strlen을 memcpy로 바꾸기만 하면 된다.
 ### Question 0.2: ntohl, ntohll, and ntohs can either be functions or macros (depending on the platform where the code is compiled).
 As these snapshots for U-Boot were built on Linux, we know they are going to be macros. Write a query to find the definition of these macros.
-```
+```CodeQL
 import cpp
 from Macros m
 where m.getName() = "ntoh(l|ll|s)"
@@ -37,7 +37,7 @@ select m
 
 ## Step 1: Finding the calls to memcpy, ntohl, ntohll, and ntohs
 ### Question 1.0: Find all the calls to memcpy.
-```
+```CodeQL
 import cpp
 
 from FunctionCall fc
@@ -48,7 +48,7 @@ select fc
 
 ### Question 1.1: Find all the calls to ntohl, ntohll, and ntohs.
 이건 좀 어려웠는데, MacroInvocation과 MacroAccess 클래스의 차이가 잘 이해가 안갔고 어떤 메소드를 통해 그 클래스에서 ntoh* 호출을 찾아야 하는지 막막했었다. 공식 문서를 열심히 뒤져가며 여러가지를 찾아보니 다음과 같은 코드를 통해 해결할 수 있었다.
-```
+```CodeQL
 import cpp
 
 from MacroInvocation m
@@ -56,7 +56,7 @@ where m.getOutermostMacroAccess().getMacroName().regexpMatch("ntoh(l|ll|s)")
 select m
 ```
 ### Question 1.2: Find the expressions that resulted in these macro invocations.
-```
+```CodeQL
 import cpp
 
 from MacroInvocation m
@@ -65,7 +65,7 @@ select m.getExpr()
 ```
 
 ## Step 2: Data flow analysis
-```
+```CodeQL
 /**
 * @kind path-problem
 */
@@ -93,7 +93,7 @@ where cfg.hasFlowPath(source, sink)
 select sink, source, sink, "ntoh flows to memcpy"
 ```
 위와 같은 skeleton code를 주고 채우는것이 Step 2.1, 2.2이다. 다음과 같이 CodeQL 코드를 작성할 수 있다.
-```
+```CodeQL
 /**
 * @kind path-problem
 */
