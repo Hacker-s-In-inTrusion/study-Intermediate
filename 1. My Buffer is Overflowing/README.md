@@ -62,7 +62,7 @@ int main(int argc, char* argv[]){
 ```
 
 func의 첫번째 인자를 조작하는 문제이다.  
-gets 함수는 버퍼의 길이에 상관없이 개행이 읽힐 때까지 읽기 때문에 버퍼오버플로우 취약점을 가지고 있다.
+gets 함수는 버퍼의 길이에 상관없이 개행이 읽힐 때까지 읽기 때문에 Buffer Overflow 취약점을 가지고 있다.
 따라서 stack상에 overflowme라는 버퍼의 위치와 func함수의 첫번째 인자인 key의 위치를 파악하면 key값을 변조할 수 있다.
 
 overflowme 버퍼는 gets의 함수의 인자로 사용이 되기 때문에 gets가 호출되기 전 인자가 준비되는 과정을 살펴보면 위치를 알 수 있다.  
@@ -99,4 +99,4 @@ p.sendline(payload)
 p.interactive()
 ```
 
-pwntools사용한 정답은 같이 올려놓은 py파일을 참고하면 된다.
+pwntools를 사용한 정답은 같이 올려놓은 py파일을 참고하면 된다.
