@@ -1,5 +1,5 @@
 from pwn import *
-import ctypes import *
+from ctypes import c_int
 
 e = ELF('./horcruxes')
 
